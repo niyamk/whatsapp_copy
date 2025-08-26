@@ -1,89 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:phoenix/screens/chat_screen.dart';
+import 'package:phoenix/screens/updates_screen.dart';
+
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
-  final List<Tab> tabs = <Tab>[
-    Tab(text: "CHATS"),
-    Tab(text: "STATUS"),
-    Tab(text: "CALLS"),
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
+
+  late TabController _tabController;
+  final List<Widget> _screens = [
+    ChatScreen(),
+    UpdatesScreen(),
+  ];
+  final List<Tab> _tabs = [
+    Tab(
+      // text: "Chats",
+      icon: Icon(Icons.chat),
+      child: Text("chats app"),
+    ) , 
+    Tab(
+      text: "Updates",
+      icon: Icon(Icons.update),
+    ) , 
+    // Tab(
+    //   text: "Communications",
+    //   icon: Icon(Icons.group),
+    // ),
+    // Tab(
+    //   text: "Call",
+    //   icon: Icon(Icons.call),
+    // ),
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: tabs.length,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('WhatsApp'),
-          backgroundColor: Color(0xFF075E54),
-          actions: [
-            IconButton(icon: Icon(Icons.search), onPressed: () {}),
-            IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
-          ],
-          bottom: TabBar(
-            tabs: tabs,
-            indicatorColor: Colors.white,
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            ChatsTab(),
-            Center(child: Text('Status Tab')),
-            Center(child: Text('Calls Tab')),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Color(0xFF25D366),
-          child: Icon(Icons.message, color: Colors.white),
-          onPressed: () {},
-        ),
-      ),
-    );
+  void initState() {
+    _tabController = TabController(length: _tabs.length, vsync: this);
+    super.initState();
   }
-}
 
-class ChatsTab extends StatelessWidget {
-  final List<Map<String, String>> chats = [
-    {
-      "name": "Alice",
-      "message": "Hey! How are you?",
-      "time": "12:30 PM",
-      "avatar": "A",
-    },
-    {
-      "name": "Bob",
-      "message": "Let's catch up later.",
-      "time": "11:15 AM",
-      "avatar": "B",
-    },
-    {
-      "name": "Charlie",
-      "message": "Check out this photo!",
-      "time": "Yesterday",
-      "avatar": "C",
-    },
-  ];
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: chats.length,
-      itemBuilder: (context, index) {
-        final chat = chats[index];
-        return ListTile(
-          leading: CircleAvatar(
-            backgroundColor: Colors.green,
-            child: Text(chat["avatar"] ?? "", style: TextStyle(color: Colors.white)),
-          ),
-          title: Text(chat["name"] ?? ""),
-          subtitle: Text(chat["message"] ?? ""),
-          trailing: Text(chat["time"] ?? ""),
-          onTap: () {},
-        );
-      },
+    return Scaffold(
+      
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Text("WhatsApp"),
+        actions: const [
+          Icon(Icons.camera),
+          Icon(Icons.more_vert),
+        ],
+      ),
+      body: TabBarView(children: _screens,
+      controller: _tabController,),
+      bottomNavigationBar: TabBar(tabs: _tabs, controller: _tabController,),
     );
   }
 }
