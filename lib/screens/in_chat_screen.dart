@@ -132,16 +132,6 @@ class _InChatScreenState extends State<InChatScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Sender's name with custom color
-                  // Text(
-                  //   sentByMe?"" :  ,
-                  //   style: const TextStyle(
-                  //     fontWeight: FontWeight.bold,
-                  //     color: Color(0xFFD200A8), // A shade of pink/purple for the name
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 4.0),
-                  // // Message text
                   Text(
                     message,
                     style: const TextStyle(fontSize: 16),

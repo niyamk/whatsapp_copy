@@ -138,12 +138,6 @@ class _CommunityScreenState extends State<CommunityScreen> {
         ],
       ),
     );
-
-    return Scaffold(
-      body: Center(
-        child: Text("Community Screen"),
-      ),
-    );
   }
 
   Widget groups({required String title, required String sub}) {

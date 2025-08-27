@@ -62,15 +62,15 @@ class ChatScreenState extends State<ChatScreen> {
                     children: ["All", "Unread", "Favourites", "Groups"]
                         .map(
                           (e) => Container(
-                            child: Text(
-                              e,
-                              style: TextStyle(color: Colors.grey.shade800),
-                            ),
                             margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(width: 1, color: Colors.grey.shade200),
+                            ),
+                            child: Text(
+                              e,
+                              style: TextStyle(color: Colors.grey.shade800),
                             ),
                           ),
                         )
