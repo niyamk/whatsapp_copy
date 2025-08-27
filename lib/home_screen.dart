@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:phoenix/screens/call_screen.dart';
 import 'package:phoenix/screens/chat_screen.dart';
+import 'package:phoenix/screens/community_screen.dart';
 import 'package:phoenix/screens/updates_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,31 +11,32 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
-
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final List<Widget> _screens = [
     ChatScreen(),
     UpdatesScreen(),
+    CommunityScreen(),
+    CallScreen(),
   ];
   final List<Tab> _tabs = [
     Tab(
       // text: "Chats",
       icon: Icon(Icons.chat),
       child: Text("chats app"),
-    ) , 
+    ),
     Tab(
       text: "Updates",
       icon: Icon(Icons.update),
-    ) , 
-    // Tab(
-    //   text: "Communications",
-    //   icon: Icon(Icons.group),
-    // ),
-    // Tab(
-    //   text: "Call",
-    //   icon: Icon(Icons.call),
-    // ),
+    ),
+    Tab(
+      text: "Communications",
+      icon: Icon(Icons.groups_2_outlined),
+    ),
+    Tab(
+      text: "Call",
+      icon: Icon(Icons.call_outlined),
+    ),
   ];
 
   @override
@@ -51,18 +54,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text("WhatsApp"),
-        actions: const [
-          Icon(Icons.camera),
-          Icon(Icons.more_vert),
-        ],
+      body: TabBarView(
+        controller: _tabController,
+        children: _screens,
       ),
-      body: TabBarView(children: _screens,
-      controller: _tabController,),
-      bottomNavigationBar: TabBar(tabs: _tabs, controller: _tabController,),
+      bottomNavigationBar: TabBar(
+        tabs: _tabs,
+        controller: _tabController,
+      ),
     );
   }
 }
