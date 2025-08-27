@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phoenix/screens/in_chat_screen.dart';
 import 'package:phoenix/variables.dart';
 import "package:lorem_ipsum/lorem_ipsum.dart";
 
@@ -99,6 +100,11 @@ class ChatScreenState extends State<ChatScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: ListTile(
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => InChatScreen(name: name),
+            )),
         title: Text(name),
         subtitle: Text(
           msg,
