@@ -43,42 +43,49 @@ class _InChatScreenState extends State<InChatScreen> {
           ))
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        height: 70,
-        color: Colors.transparent,
-        shape: const CircularNotchedRectangle(),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Type a message...",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                  suffixIcon: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.attach_file),
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.camera_alt_outlined),
-                        onPressed: () {},
-                      ),
-                    ],
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom, // Pushes up when keyboard appears
+        ),
+        child: BottomAppBar(
+          height: 70,
+          color: Colors.transparent,
+          shape: const CircularNotchedRectangle(),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Type a message...",
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green.shade200), borderRadius: BorderRadius.circular(20)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                    suffixIcon: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.attach_file),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.camera_alt_outlined),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(width: 8),
-            IconButton(
-              icon: const Icon(Icons.send),
-              onPressed: () {},
-            ),
-          ],
+              const SizedBox(width: 8),
+              IconButton(
+                icon: const Icon(Icons.send),
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );

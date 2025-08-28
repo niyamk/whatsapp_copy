@@ -103,8 +103,7 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
                               width: 100,
                               margin: EdgeInsets.only(right: 10),
                               decoration: BoxDecoration(
-                                image:
-                                    DecorationImage(image: AssetImage('assets/images/krishna.jpg'), fit: BoxFit.fill),
+                                image: DecorationImage(image: AssetImage('assets/images/dummy.png'), fit: BoxFit.fill),
                                 color: Colors.grey.shade100,
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -124,7 +123,7 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
                                       ),
                                       child: CircleAvatar(
                                         radius: 15,
-                                        backgroundColor: getRandomColor(),
+                                        backgroundColor: getColorFromLetter(e[0]),
                                         // backgroundColor: Colors.purple.shade100,
                                         child: Text(
                                           e[0][0].capitalize(),
@@ -140,9 +139,13 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
                                   Positioned(
                                       bottom: 10,
                                       left: 10,
-                                      child: Text(
-                                        e[0],
-                                        style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white),
+                                      child: SizedBox(
+                                        width: 70,
+                                        child: Text(
+                                          e[0],
+                                          style:
+                                              TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 12),
+                                        ),
                                       )),
                                 ],
                               ),
@@ -210,7 +213,7 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
           SliverList(
               delegate: SliverChildBuilderDelegate(
             (context, index) {
-              return _channels(name: loremIpsum(words: 2), msg: '${((index + 1) * 9.23)}k Followers');
+              return _channels(name: channelsList[index][0], msg: '${((index + 1) * 9.23)}k Followers');
             },
             childCount: 10,
           )),
@@ -247,7 +250,7 @@ class _UpdatesScreenState extends State<UpdatesScreen> {
       leading: CircleAvatar(
         radius: 25,
         // backgroundColor: Colors.purple.shade100,
-        backgroundColor: getRandomColor(),
+        backgroundColor: getColorFromLetter(name[0]),
         child: Text(
           name[0],
           style: TextStyle(

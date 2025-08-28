@@ -17,6 +17,7 @@ extension StringExtension on String {
 }
 
 class ChatScreenState extends State<ChatScreen> {
+  Set<String> selectedTags = {};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,16 +62,24 @@ class ChatScreenState extends State<ChatScreen> {
                   Row(
                     children: ["All", "Unread", "Favourites", "Groups"]
                         .map(
-                          (e) => Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(width: 1, color: Colors.grey.shade200),
-                            ),
-                            child: Text(
-                              e,
-                              style: TextStyle(color: Colors.grey.shade800),
+                          (e) => GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedTags.contains(e) ? selectedTags.remove(e) : selectedTags.add(e);
+                              });
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: selectedTags.contains(e) ? Colors.green.shade100 : null,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(width: 1, color: Colors.grey.shade200),
+                              ),
+                              child: Text(
+                                e,
+                                style: TextStyle(color: Colors.grey.shade800),
+                              ),
                             ),
                           ),
                         )
@@ -83,7 +92,7 @@ class ChatScreenState extends State<ChatScreen> {
           SliverList(
               delegate: SliverChildBuilderDelegate(
             (context, index) {
-              return _chatList(name: names[index][0], msg: loremIpsum(words: 10));
+              return _chatList(name: names[index][0], msg: names[index][1]);
             },
             childCount: names.length,
           )),
@@ -113,7 +122,8 @@ class ChatScreenState extends State<ChatScreen> {
         trailing: Text("10:10 am"),
         leading: CircleAvatar(
           radius: 20,
-          backgroundColor: getRandomColor(),
+          backgroundColor: getColorFromLetter(name[0]),
+          // backgroundColor: getRandomColor(),
           // backgroundColor: Colors.purple[100],
           child: Text(
             name[0].toUpperCase(),

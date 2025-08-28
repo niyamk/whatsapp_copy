@@ -95,8 +95,8 @@ class _CallScreenState extends State<CallScreen> {
           ),
           SliverList(
               delegate: SliverChildBuilderDelegate(
-            (context, index) => calls(name: loremIpsum(words: 1), incoming: Random().nextBool()),
-            childCount: 20,
+            (context, index) => calls(name: callsList[index], incoming: Random().nextBool()),
+            childCount: callsList.length,
           )),
           SliverFillRemaining(
             hasScrollBody: false,
@@ -112,7 +112,7 @@ class _CallScreenState extends State<CallScreen> {
   Widget calls({required String name, required bool incoming}) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundColor: getRandomColor(),
+        backgroundColor: getColorFromLetter(name[0]),
         child: Text(name[0]),
       ),
       title: Text(name.capitalize()),
