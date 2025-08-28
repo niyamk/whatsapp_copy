@@ -13,6 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'WhatsApp UI',
       theme: ThemeData(
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.green,
+        ),
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
           surfaceTintColor: Colors.white,

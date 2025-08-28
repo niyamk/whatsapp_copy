@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  int _currentIndex = 0;
   final List<Widget> _screens = [
     ChatScreen(),
     UpdatesScreen(),
@@ -21,16 +22,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   ];
   final List<Tab> _tabs = [
     Tab(
-      // text: "Chats",
+      text: "Chats",
       icon: Icon(Icons.chat),
-      child: Text("chats app"),
     ),
     Tab(
       text: "Updates",
       icon: Icon(Icons.update),
     ),
     Tab(
-      text: "Communications",
+      text: "Communities",
       icon: Icon(Icons.groups_2_outlined),
     ),
     Tab(
@@ -42,6 +42,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     _tabController = TabController(length: _tabs.length, vsync: this);
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        setState(() {
+          _currentIndex = _tabController.index;
+        });
+      }
+    });
     super.initState();
   }
 
@@ -54,11 +61,21 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: _currentIndex == 2
+          ? null
+          : FloatingActionButton(
+              onPressed: () {},
+              child: Icon(
+                [Icons.add_comment, Icons.add_a_photo_outlined, Icons.add, Icons.add_call][_tabController.index],
+                color: Colors.white,
+              ),
+            ),
       body: TabBarView(
         controller: _tabController,
         children: _screens,
       ),
       bottomNavigationBar: TabBar(
+        labelPadding: EdgeInsets.symmetric(horizontal: 5),
         tabs: _tabs,
         controller: _tabController,
       ),
